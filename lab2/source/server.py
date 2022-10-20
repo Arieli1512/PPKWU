@@ -2,6 +2,7 @@
 import http.server
 import socketserver
 import os
+import time
 
 #print('source code for "http.server":', http.server.__file__)
 
@@ -17,13 +18,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()            
             self.wfile.write(b"Hello World!\n")
+            self.wfile.write(bytes(time.strftime("%H:%M:%S"), "utf-8"))
         else:
             super().do_GET()
     
 # --- main ---
 
 PORT = 4080
-
+time.tzset()
+os.environ["TZ"] = "Europe/Warsaw"
 print(f'Starting: http://localhost:{PORT}')
 
 tcp_server = socketserver.TCPServer(("",PORT), web_server)
