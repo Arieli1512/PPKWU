@@ -2,6 +2,7 @@
 import http.server
 import socketserver
 import os
+import json
 
 #print('source code for "http.server":', http.server.__file__)
 
@@ -18,14 +19,24 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()            
             self.wfile.write(b"Hello World!\n")
         else:
-            self.protocol_version = 'HTTP/1.1'
-            self.send_response(200)
-            self.send_header("Content-type", "text/html; charset=UTF-8")
-            self.end_headers()           
-            param = self.path.split('&')
-            str = param[0]
-            str =str.split('=')
-            self.wfile.write(str[1].encode())
+            if self.path.startswith('/str='):
+                self.protocol_version = 'HTTP/1.1'
+                self.send_response(200)
+                self.send_header("Content-type", "text/html; charset=UTF-8")
+                self.end_headers()           
+                param = self.path.split('/str=',1)
+                strP = param[1]
+                cntLowercase = sum(map(str.islower, strP))
+                cntUpperCase = sum(map(str.isupper, strP))
+                cntDigits = sum(map(str.isdigit, strP))
+                rest = 10
+                data = {}
+                data['lowercase'] = cntLowercase
+                data['uppercase'] = cntUpperCase
+                data['digits'] = cntDigits
+                data['special'] = rest
+                json_data = json.dumps(data)
+                self.wfile.write(bytes(json_data).encode())
 
     
 # --- main ---
