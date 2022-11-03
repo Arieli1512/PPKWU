@@ -18,7 +18,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()            
             self.wfile.write(b"Hello World!\n")
         else:
-            super().do_GET()
+            self.protocol_version = 'HTTP/1.1'
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=UTF-8")
+            self.end_headers()           
+            param = self.path.split('&')
+            str = param[0]
+            str =str.split('=')
+            self.wfile.write(str[1].encode())
+
     
 # --- main ---
 
