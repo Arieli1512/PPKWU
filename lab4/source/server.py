@@ -2,20 +2,28 @@
 import http.server
 import socketserver
 import os
+from urlib.parse import urlparse
+from urlib.parse import parse_qs
+import json
+
 
 #print('source code for "http.server":', http.server.__file__)
 
 class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
+        parsed = urlparse(self.path)
+        qs = parse_qs(parsed.query)
 
-        print(self.path)
-        
-        if self.path == '/':
+        if len(qs) == 2 and 'num1' in qs.keys() and 'num2' in qs.keys():
             self.protocol_version = 'HTTP/1.1'
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()            
+        print(self.path)
+        
+        if self.path == '/':
+            
             self.wfile.write(b"Hello World!\n")
         else:
             super().do_GET()
