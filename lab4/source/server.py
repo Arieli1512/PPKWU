@@ -20,8 +20,8 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers() 
-            num1 = qs['num1'][0]
-            num2 = qs['num2'][0]
+            num1 = int(qs['num1'][0])
+            num2 = int(qs['num2'][0])
             response = {
                 "sum" : num1+num2,
                 "sub" : num1-num2,
