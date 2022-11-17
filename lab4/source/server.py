@@ -19,12 +19,17 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.protocol_version = 'HTTP/1.1'
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
-            self.end_headers()            
-        print(self.path)
-        
-        if self.path == '/':
-            
-            self.wfile.write(b"Hello World!\n")
+            self.end_headers() 
+            num1 = qs['num1'][0]
+            num2 = qs['num2'][0]
+            response = {
+                "sum" : num1+num2,
+                "sub" : num1-num2,
+                "mul" : num1*num2,
+                "div" : num1/num2,
+                "mod" : num1%num2
+            }
+            self.wfile.write(json.dumps(response).encode())
         else:
             super().do_GET()
     
