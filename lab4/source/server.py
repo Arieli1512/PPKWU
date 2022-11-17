@@ -2,8 +2,8 @@
 import http.server
 import socketserver
 import os
-from urlib.parse import urlparse
-from urlib.parse import parse_qs
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 import json
 
 
