@@ -31,7 +31,14 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             }
             self.wfile.write(json.dumps(response).encode())
         else:
-            super().do_GET()
+            if self.path =='/':
+                self.protocol_version = 'HTTP/1.1'
+                self.send_response(200)
+                self.send_header("Content-type", "text/html; charset=UTF-8")
+                self.end_headers() 
+                self.wfile.write(b"ERROR\n")
+            else:
+                super().do_GET()
     
 # --- main ---
 
