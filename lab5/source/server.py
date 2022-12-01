@@ -2,8 +2,6 @@
 from flask import Flask, request, jsonify
 import re
 
-parameter_names = ["sum", "sub", "mul", "div", "mod"]
-
 app = Flask(__name__)
 
 def calculateInts(num1 :int, num2: int):
