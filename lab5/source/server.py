@@ -19,7 +19,11 @@ def stringStats(input : str):
         "digits": digits,
         "special": rest
     }
-def multipleCalc(num1 :int, num2: int, input : str)
+def multipleCalc(num1 :int, num2: int, input : str):
+    lowercase = len(re.findall(r'[a-z]', input))
+    uppercase = len(re.findall(r'[A-Z]', input))
+    digits = len(re.findall(r'[1-9]', input))
+    rest = len(input) - lowercase - uppercase - digits
     return {
         "lowercase": lowercase,
         "uppercase": uppercase,
