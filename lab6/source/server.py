@@ -36,10 +36,10 @@ def multipleCalc(num1 :int, num2: int, input : str):
 
 @app.route("/", methods=['POST'])
 def get_numbers():
-    request_json = request.get_json()
-    inputStr = request_json.get("str")
-    num1 = request_json.get("num1")
-    num2 = request_json.get("num2")
+    request_xml = request.get()
+    inputStr = request_xml.get("str")
+    num1 = request_xml.get("num1")
+    num2 = request_xml.get("num2")
     if num1 is not None and num2 is not None and inputStr is not None:
         output = multipleCalc(num1,num2,inputStr)
     else:
