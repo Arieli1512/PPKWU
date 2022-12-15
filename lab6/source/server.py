@@ -39,17 +39,20 @@ def multipleCalc(num1 :int, num2: int, input : str):
 @app.route("/", methods=['POST'])
 def get_numbers():
     request_xml = xmltodict.parse(request.get_data("root"))
-    inputStr = request_xml.get("str")
-    num1 = request_xml.get("num1")
-    num2 = request_xml.get("num2")
-    if num1 is not None and num2 is not None and inputStr is not None:
-        output = multipleCalc(num1,num2,inputStr)
-    else:
-        if num1 is not None and num2 is not None:
-            output = calculateInts(num1, num2)
-        if inputStr is not None:
-            output = stringStats(inputStr)
-    return output
+    root = request_xml.get("root")
+    if root is not None:
+        request_xml= request_xml["root"]
+        inputStr = request_xml.get("str")
+        num1 = request_xml.get("num1")
+        num2 = request_xml.get("num2")
+        if num1 is not None and num2 is not None and inputStr is not None:
+            output = multipleCalc(num1,num2,inputStr)
+        else:
+            if num1 is not None and num2 is not None:
+                output = calculateInts(num1, num2)
+            if inputStr is not None:
+                output = stringStats(inputStr)
+        return output
 
 
 app.run(port=4080, host='0.0.0.0')
