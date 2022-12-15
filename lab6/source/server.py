@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from flask import Flask, request, jsonify
 import re
+import xmltodict
+from dict2xml import dict2xml
 
 app = Flask(__name__)
 
@@ -36,7 +38,7 @@ def multipleCalc(num1 :int, num2: int, input : str):
 
 @app.route("/", methods=['POST'])
 def get_numbers():
-    request_xml = request.get()
+    request_xml = xmltodict.parse(request.get_data("root"))
     inputStr = request_xml.get("str")
     num1 = request_xml.get("num1")
     num2 = request_xml.get("num2")
