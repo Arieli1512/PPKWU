@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import re
 import xmltodict
 from dict2xml import dict2xml
